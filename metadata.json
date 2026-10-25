@@ -1,0 +1,6 @@
+{
+  "name": "DuoFit — Совместные тренировки",
+  "description": "Приложение для совместных тренировок двух друзей: недельные планы, активная тренировка с таймером отдыха, сравнение прогресса и обмен планами офлайн.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
