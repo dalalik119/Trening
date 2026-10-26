@@ -1,8 +1,8 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import {defineConfig} from 'vite';
-import {VitePWA} from 'vite-plugin-pwa';
+import { defineConfig } from 'vite';
+import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig(() => {
   return {
@@ -11,33 +11,40 @@ export default defineConfig(() => {
       tailwindcss(),
       VitePWA({
         registerType: 'autoUpdate',
-        includeAssets: ['favicon.svg', 'apple-touch-icon.png', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png'],
+        includeAssets: [
+          'favicon.svg',
+          'apple-touch-icon.png',
+          'icons/icon-192.png',
+          'icons/icon-512.png',
+          'icons/icon-maskable-512.png',
+        ],
         manifestFilename: 'manifest.webmanifest',
         manifest: {
-          id: '/',
+          id: '/Trening/',
           name: 'DuoFit — Совместные тренировки',
           short_name: 'DuoFit',
-          description: 'Совместные планы тренировок, трекер подходов, таймер отдыха и сравнение результатов с другом.',
+          description:
+            'Совместные планы тренировок, трекер подходов, таймер отдыха и сравнение результатов с другом.',
           theme_color: '#090D16',
           background_color: '#090D16',
           display: 'standalone',
-          start_url: '/',
-          scope: '/',
+          start_url: '/Trening/',
+          scope: '/Trening/',
           icons: [
             {
-              src: '/icons/icon-192.png',
+              src: '/Trening/icons/icon-192.png',
               sizes: '192x192',
               type: 'image/png',
               purpose: 'any',
             },
             {
-              src: '/icons/icon-512.png',
+              src: '/Trening/icons/icon-512.png',
               sizes: '512x512',
               type: 'image/png',
               purpose: 'any',
             },
             {
-              src: '/icons/icon-maskable-512.png',
+              src: '/Trening/icons/icon-maskable-512.png',
               sizes: '512x512',
               type: 'image/png',
               purpose: 'maskable',
