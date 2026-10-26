@@ -1,9 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  STARTER_PLAN_TEMPLATES,
   calculateSessionMetrics,
   cloneDayToAnotherDay,
   createActiveSessionFromDay,
+  createCleanUserData,
   createInitialSeedData,
   finalizeSessionToRecord,
   serializePlanToExport,
@@ -11,6 +13,23 @@ import {
   validateExerciseInput,
   validateSetInput,
 } from './workoutLogic';
+
+test('createCleanUserData initializes profile with zero plans and zero workout history', () => {
+  const clean = createCleanUserData('Дмитрий', 4);
+  assert.equal(clean.settings.userName, 'Дмитрий');
+  assert.equal(clean.settings.weeklyGoalWorkouts, 4);
+  assert.equal(clean.plans.length, 0);
+  assert.equal(clean.history.length, 0);
+});
+
+test('STARTER_PLAN_TEMPLATES build valid configurable plans for any user', () => {
+  for (const tpl of STARTER_PLAN_TEMPLATES) {
+    const plan = tpl.buildPlan('Дмитрий');
+    assert.equal(plan.authorName, 'Дмитрий');
+    assert.ok(plan.days.length > 0);
+    assert.ok(plan.days[0].exercises.length > 0);
+  }
+});
 
 test('validateExerciseInput rejects invalid sets, negative weights, and empty names', () => {
   assert.equal(
@@ -78,7 +97,6 @@ test('createActiveSessionFromDay and calculateSessionMetrics separate planned vs
   assert.equal(session.exercises.length, day.exercises.length);
   assert.equal(session.exercises[0].sets.length, 4);
 
-  // User completes first 2 sets with different actual reps/weight than planned
   session.exercises[0].sets[0].completed = true;
   session.exercises[0].sets[0].actualReps = 10;
   session.exercises[0].sets[0].actualWeightKg = 80;
@@ -91,9 +109,8 @@ test('createActiveSessionFromDay and calculateSessionMetrics separate planned vs
   assert.equal(metrics.totalCompletedSets, 2);
   assert.equal(metrics.totalCompletedReps, 18);
   assert.equal(metrics.totalVolumeKg, 1440);
-  // Planned values remain untouched
   assert.equal(session.exercises[0].sets[0].plannedReps, 8);
-  assert.equal(session.exercises[0].sets[0].plannedWeightKg, 75);
+  assert.equal(session.exercises[0].sets[0].plannedWeightKg, 60);
 
   const record = finalizeSessionToRecord(session, 'Алексей', '2026-10-25T10:48:00.000Z');
   assert.equal(record.durationMinutes, 48);

@@ -119,6 +119,27 @@ export interface UserSettings {
   weeklyGoalWorkouts: number;
 }
 
+export interface UserAccountSummary {
+  id: string;
+  username: string;
+  displayName: string;
+  avatarColor: string;
+  friendCode: string;
+  linkedFriendId: string | null;
+  createdAt: string;
+}
+
+export interface LinkedFriendSummary {
+  id: string;
+  username: string;
+  displayName: string;
+  avatarColor: string;
+  friendCode: string;
+  weeklyGoalWorkouts: number;
+  history: CompletedWorkoutRecord[];
+  plans: TrainingPlan[];
+}
+
 export interface PlanExportPayload {
   format: 'duofit-plan';
   version: 1;

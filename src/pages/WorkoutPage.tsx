@@ -3,8 +3,10 @@ import {
   Check,
   ChevronLeft,
   ChevronRight,
+  Minus,
   Pause,
   Play,
+  Plus,
   RotateCcw,
   SkipForward,
   Timer,
@@ -12,6 +14,7 @@ import {
 } from 'lucide-react';
 import {
   ActiveWorkoutSession,
+  SessionSetResult,
   TrainingPlan,
   UserSettings,
   WorkoutDayPlan,
@@ -26,6 +29,7 @@ interface WorkoutPageProps {
   onFinishSession: () => void;
   onDiscardSession: () => void;
   onStartWorkout: (plan: TrainingPlan, day: WorkoutDayPlan) => void;
+  onNavigateToPlans: () => void;
 }
 
 export const WorkoutPage: React.FC<WorkoutPageProps> = ({
@@ -36,6 +40,7 @@ export const WorkoutPage: React.FC<WorkoutPageProps> = ({
   onFinishSession,
   onDiscardSession,
   onStartWorkout,
+  onNavigateToPlans,
 }) => {
   const [remainingRestSec, setRemainingRestSec] = useState<number>(0);
   const [validationError, setValidationError] = useState<string | null>(null);
@@ -77,11 +82,23 @@ export const WorkoutPage: React.FC<WorkoutPageProps> = ({
             Режим активной тренировки
           </h1>
           <p className="text-sm text-slate-600 dark:text-slate-400 max-w-md mx-auto">
-            Тренировка не считается начатой при простом открытии вкладки. Выберите день из вашего плана ниже, чтобы запустить новую сессию с сохранением подходов и таймером отдыха.
+            Выберите тренировочный день из вашего плана ниже, чтобы запустить новую сессию с сохранением фактических весов, повторений и таймером отдыха.
           </p>
+          {(!activePlan || activePlan.days.length === 0) && (
+            <div className="pt-2">
+              <button
+                type="button"
+                onClick={onNavigateToPlans}
+                className="inline-flex items-center gap-2 min-h-[44px] px-5 py-2.5 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs hover:bg-emerald-400 transition-colors"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Перейти к созданию плана тренировок</span>
+              </button>
+            </div>
+          )}
         </div>
 
-        {activePlan && (
+        {activePlan && activePlan.days.length > 0 && (
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {activePlan.days.map((day) => (
               <div
@@ -101,11 +118,16 @@ export const WorkoutPage: React.FC<WorkoutPageProps> = ({
                 </div>
                 <button
                   type="button"
+                  disabled={day.exercises.length === 0}
                   onClick={() => onStartWorkout(activePlan, day)}
-                  className="w-full min-h-[44px] inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs hover:bg-emerald-400 transition-colors"
+                  className="w-full min-h-[44px] inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs hover:bg-emerald-400 transition-colors disabled:opacity-40"
                 >
                   <Play className="w-3.5 h-3.5 fill-current" />
-                  <span>Начать ({day.dayOfWeek})</span>
+                  <span>
+                    {day.exercises.length > 0
+                      ? `Начать (${day.dayOfWeek})`
+                      : 'Добавьте упражнения'}
+                  </span>
                 </button>
               </div>
             ))}
@@ -136,7 +158,10 @@ export const WorkoutPage: React.FC<WorkoutPageProps> = ({
         if (sIdx !== setIndex) return s;
         return {
           ...s,
-          [field]: field === 'actualWeightKg' && rawValue.trim() === '' ? null : numValue,
+          [field]:
+            field === 'actualWeightKg' && rawValue.trim() === ''
+              ? null
+              : Math.max(0, numValue),
         };
       });
       return { ...ex, sets: updatedSets };
@@ -146,6 +171,39 @@ export const WorkoutPage: React.FC<WorkoutPageProps> = ({
       ...session,
       exercises: updatedExercises,
     });
+  };
+
+  const handleAdjustSetField = (
+    setIndex: number,
+    field: 'actualReps' | 'actualWeightKg',
+    delta: number
+  ) => {
+    const targetSet = currentExercise.sets[setIndex];
+    const currentVal =
+      field === 'actualWeightKg'
+        ? Number(targetSet.actualWeightKg ?? 0)
+        : Number(targetSet.actualReps ?? 0);
+    const nextVal = Math.max(0, Math.round((currentVal + delta) * 10) / 10);
+    handleSetFieldChange(setIndex, field, String(nextVal));
+  };
+
+  const handleAddDynamicSet = () => {
+    const lastSet = currentExercise.sets[currentExercise.sets.length - 1];
+    const newSetNumber = currentExercise.sets.length + 1;
+    const newSet: SessionSetResult = {
+      id: `set-dyn-${Date.now()}`,
+      setNumber: newSetNumber,
+      plannedReps: lastSet?.plannedReps ?? 10,
+      plannedWeightKg: lastSet?.plannedWeightKg ?? null,
+      actualReps: lastSet?.actualReps ?? 10,
+      actualWeightKg: lastSet?.actualWeightKg ?? null,
+      completed: false,
+    };
+
+    const updatedExercises = session.exercises.map((ex, idx) =>
+      idx === currentExIndex ? { ...ex, sets: [...ex.sets, newSet] } : ex
+    );
+    onUpdateSession({ ...session, exercises: updatedExercises });
   };
 
   const handleToggleSetCompleted = (setIndex: number) => {
@@ -180,7 +238,6 @@ export const WorkoutPage: React.FC<WorkoutPageProps> = ({
       };
     });
 
-    // Automatically start rest timer when marking a set completed
     const restSec = currentExercise.restSeconds || 90;
     onUpdateSession({
       ...session,
@@ -202,14 +259,12 @@ export const WorkoutPage: React.FC<WorkoutPageProps> = ({
 
   const handlePauseResumeTimer = () => {
     if (session.restTimerPausedRemainingSec !== null) {
-      // Resume
       onUpdateSession({
         ...session,
         restTimerEndAt: Date.now() + session.restTimerPausedRemainingSec * 1000,
         restTimerPausedRemainingSec: null,
       });
     } else if (remainingRestSec > 0) {
-      // Pause
       onUpdateSession({
         ...session,
         restTimerEndAt: null,
@@ -351,10 +406,10 @@ export const WorkoutPage: React.FC<WorkoutPageProps> = ({
           <div className="space-y-1">
             <div className="grid grid-cols-12 gap-2 px-3 pb-2 text-xs font-semibold text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800">
               <div className="col-span-2">Подход</div>
-              <div className="col-span-3">План</div>
+              <div className="col-span-2">План</div>
               <div className="col-span-3">Вес ({settings.unit})</div>
-              <div className="col-span-2">Повторы</div>
-              <div className="col-span-2 text-right">Статус</div>
+              <div className="col-span-3">Повторы</div>
+              <div className="col-span-2 text-right">Готово</div>
             </div>
 
             <div className="divide-y divide-slate-100 dark:divide-slate-800">
@@ -371,16 +426,24 @@ export const WorkoutPage: React.FC<WorkoutPageProps> = ({
                     #{setItem.setNumber}
                   </div>
 
-                  <div className="col-span-3 text-xs text-slate-500 dark:text-slate-400 font-mono-tabular">
+                  <div className="col-span-2 text-xs text-slate-500 dark:text-slate-400 font-mono-tabular">
                     {setItem.plannedReps} ×{' '}
                     {currentExercise.isBodyweight
                       ? setItem.plannedWeightKg
                         ? `+${setItem.plannedWeightKg}`
                         : 'Свой'
-                      : `${setItem.plannedWeightKg ?? 0} ${settings.unit}`}
+                      : `${setItem.plannedWeightKg ?? 0}`}
                   </div>
 
-                  <div className="col-span-3">
+                  <div className="col-span-3 flex items-center gap-1">
+                    <button
+                      type="button"
+                      onClick={() => handleAdjustSetField(sIdx, 'actualWeightKg', -2.5)}
+                      aria-label={`Уменьшить вес подхода ${setItem.setNumber}`}
+                      className="hidden sm:flex min-h-[40px] min-w-[32px] items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200"
+                    >
+                      <Minus className="w-3 h-3" />
+                    </button>
                     <input
                       type="number"
                       step="0.5"
@@ -390,18 +453,42 @@ export const WorkoutPage: React.FC<WorkoutPageProps> = ({
                       onChange={(e) =>
                         handleSetFieldChange(sIdx, 'actualWeightKg', e.target.value)
                       }
-                      className="w-full min-h-[44px] rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-2.5 text-sm font-mono-tabular font-semibold text-slate-900 dark:text-white"
+                      className="w-full min-h-[44px] rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-2 text-center text-sm font-mono-tabular font-semibold text-slate-900 dark:text-white"
                     />
+                    <button
+                      type="button"
+                      onClick={() => handleAdjustSetField(sIdx, 'actualWeightKg', 2.5)}
+                      aria-label={`Увеличить вес подхода ${setItem.setNumber}`}
+                      className="hidden sm:flex min-h-[40px] min-w-[32px] items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200"
+                    >
+                      <Plus className="w-3 h-3" />
+                    </button>
                   </div>
 
-                  <div className="col-span-2">
+                  <div className="col-span-3 flex items-center gap-1">
+                    <button
+                      type="button"
+                      onClick={() => handleAdjustSetField(sIdx, 'actualReps', -1)}
+                      aria-label={`Уменьшить повторения подхода ${setItem.setNumber}`}
+                      className="hidden sm:flex min-h-[40px] min-w-[32px] items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200"
+                    >
+                      <Minus className="w-3 h-3" />
+                    </button>
                     <input
                       type="number"
                       aria-label={`Фактические повторения подхода ${setItem.setNumber}`}
                       value={setItem.actualReps}
                       onChange={(e) => handleSetFieldChange(sIdx, 'actualReps', e.target.value)}
-                      className="w-full min-h-[44px] rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-2.5 text-sm font-mono-tabular font-semibold text-slate-900 dark:text-white"
+                      className="w-full min-h-[44px] rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-2 text-center text-sm font-mono-tabular font-semibold text-slate-900 dark:text-white"
                     />
+                    <button
+                      type="button"
+                      onClick={() => handleAdjustSetField(sIdx, 'actualReps', 1)}
+                      aria-label={`Увеличить повторения подхода ${setItem.setNumber}`}
+                      className="hidden sm:flex min-h-[40px] min-w-[32px] items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200"
+                    >
+                      <Plus className="w-3 h-3" />
+                    </button>
                   </div>
 
                   <div className="col-span-2 flex justify-end">
@@ -424,6 +511,17 @@ export const WorkoutPage: React.FC<WorkoutPageProps> = ({
                   </div>
                 </div>
               ))}
+            </div>
+
+            <div className="pt-2">
+              <button
+                type="button"
+                onClick={handleAddDynamicSet}
+                className="inline-flex items-center gap-1.5 min-h-[38px] px-3.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:border-emerald-500/50 transition-colors"
+              >
+                <Plus className="w-3.5 h-3.5 text-emerald-500" />
+                <span>Добавить ещё подход</span>
+              </button>
             </div>
           </div>
 
@@ -559,12 +657,12 @@ export const WorkoutPage: React.FC<WorkoutPageProps> = ({
                   Завершить тренировку?
                 </h3>
                 <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Фактические результаты будут сохранены в вашей истории прогресса
+                  Фактические результаты будут сохранены в вашем профиле и видны напарнику
                 </p>
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 font-mono-tabular text-center">
+            <div className="grid grid-cols-3 gap-3 p-4 rounded-xl bg-slate-100/80 dark:bg-slate-800/50 font-mono-tabular text-center">
               <div>
                 <div className="text-xs text-slate-500">Подходы</div>
                 <div className="text-base font-bold text-slate-900 dark:text-white">

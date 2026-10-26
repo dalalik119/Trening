@@ -1,0 +1,621 @@
+{
+  "users": [
+    {
+      "id": "usr_1793033299846_omq91",
+      "username": "max_fit",
+      "displayName": "Максим",
+      "passwordHash": "8f0e911fc22876b9fe0f9f67f112f076047c9a73bd4b689be91d7579978ca077",
+      "avatarColor": "#10B981",
+      "friendCode": "DUO-PGJT",
+      "linkedFriendId": "usr_1793033301068_k2zcs",
+      "createdAt": "2026-10-26T16:48:19.846Z",
+      "settings": {
+        "id": "default",
+        "userName": "Максим",
+        "friendName": "Алексей",
+        "unit": "kg",
+        "theme": "dark",
+        "restSoundEnabled": true,
+        "weeklyGoalWorkouts": 3
+      },
+      "plans": [
+        {
+          "id": "plan-1793033299928",
+          "name": "Сплит: Сила и База 3× в неделю",
+          "description": "Сбалансированная программа на три дня: жимовая база, тяговый день и тренировка ног.",
+          "authorName": "Максим",
+          "createdAt": "2026-10-26T16:48:19.928Z",
+          "updatedAt": "2026-10-26T16:48:19.932Z",
+          "isActive": true,
+          "days": [
+            {
+              "id": "day-mon-1793033299933",
+              "dayOfWeek": "Пн",
+              "title": "Верх тела: Грудь и Плечи",
+              "focus": "Жимовая база и дельты",
+              "estimatedMinutes": 50,
+              "exercises": [
+                {
+                  "id": "ex-1-1793033299933",
+                  "catalogId": "cat-bench-press",
+                  "name": "Жим штанги лёжа",
+                  "muscleGroup": "Грудь",
+                  "isBodyweight": false,
+                  "sets": 4,
+                  "reps": 8,
+                  "targetWeightKg": 60,
+                  "restSeconds": 120
+                },
+                {
+                  "id": "ex-2-1793033299933",
+                  "catalogId": "cat-incline-db",
+                  "name": "Жим гантелей на наклонной",
+                  "muscleGroup": "Грудь",
+                  "isBodyweight": false,
+                  "sets": 3,
+                  "reps": 10,
+                  "targetWeightKg": 20,
+                  "restSeconds": 90
+                },
+                {
+                  "id": "ex-3-1793033299933",
+                  "catalogId": "cat-ohp",
+                  "name": "Армейский жим стоя",
+                  "muscleGroup": "Плечи",
+                  "isBodyweight": false,
+                  "sets": 3,
+                  "reps": 8,
+                  "targetWeightKg": 40,
+                  "restSeconds": 120
+                }
+              ]
+            },
+            {
+              "id": "day-wed-1793033299933",
+              "dayOfWeek": "Ср",
+              "title": "Тяга: Спина и Руки",
+              "focus": "Ширина спины и бицепс",
+              "estimatedMinutes": 45,
+              "exercises": [
+                {
+                  "id": "ex-4-1793033299933",
+                  "catalogId": "cat-pullups",
+                  "name": "Подтягивания широким хватом",
+                  "muscleGroup": "Спина",
+                  "isBodyweight": true,
+                  "sets": 4,
+                  "reps": 10,
+                  "targetWeightKg": null,
+                  "restSeconds": 120
+                },
+                {
+                  "id": "ex-5-1793033299933",
+                  "catalogId": "cat-barbell-row",
+                  "name": "Тяга штанги в наклоне",
+                  "muscleGroup": "Спина",
+                  "isBodyweight": false,
+                  "sets": 4,
+                  "reps": 10,
+                  "targetWeightKg": 60,
+                  "restSeconds": 90
+                },
+                {
+                  "id": "ex-6-1793033299933",
+                  "catalogId": "cat-bicep-curl",
+                  "name": "Подъём штанги на бицепс",
+                  "muscleGroup": "Руки",
+                  "isBodyweight": false,
+                  "sets": 3,
+                  "reps": 12,
+                  "targetWeightKg": 30,
+                  "restSeconds": 75
+                }
+              ]
+            },
+            {
+              "id": "day-fri-1793033299933",
+              "dayOfWeek": "Пт",
+              "title": "Низ тела и Пресс",
+              "focus": "Базовые ноги и кор",
+              "estimatedMinutes": 50,
+              "exercises": [
+                {
+                  "id": "ex-7-1793033299933",
+                  "catalogId": "cat-squat",
+                  "name": "Приседания со штангой",
+                  "muscleGroup": "Ноги",
+                  "isBodyweight": false,
+                  "sets": 4,
+                  "reps": 8,
+                  "targetWeightKg": 80,
+                  "restSeconds": 150
+                },
+                {
+                  "id": "ex-8-1793033299933",
+                  "catalogId": "cat-rdl",
+                  "name": "Румынская тяга",
+                  "muscleGroup": "Ноги",
+                  "isBodyweight": false,
+                  "sets": 3,
+                  "reps": 10,
+                  "targetWeightKg": 70,
+                  "restSeconds": 120
+                },
+                {
+                  "id": "ex-9-1793033299933",
+                  "catalogId": "cat-plank",
+                  "name": "Планка с контролем кора",
+                  "muscleGroup": "Пресс",
+                  "isBodyweight": true,
+                  "sets": 3,
+                  "reps": 60,
+                  "targetWeightKg": null,
+                  "restSeconds": 60
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "history": [
+        {
+          "id": "hist-1793033300437",
+          "planId": "plan-1793033299928",
+          "planName": "Сплит: Сила и База 3× в неделю",
+          "dayOfWeek": "Пн",
+          "workoutTitle": "Верх тела: Грудь и Плечи",
+          "startedAt": "2026-10-26T16:48:20.028Z",
+          "finishedAt": "2026-10-26T16:48:20.437Z",
+          "durationMinutes": 1,
+          "participant": "me",
+          "participantName": "Максим",
+          "totalCompletedSets": 2,
+          "totalCompletedReps": 16,
+          "totalVolumeKg": 960,
+          "exercises": [
+            {
+              "id": "sess-ex-0-ex-1-1793033299933",
+              "plannedExerciseId": "ex-1-1793033299933",
+              "name": "Жим штанги лёжа",
+              "muscleGroup": "Грудь",
+              "isBodyweight": false,
+              "restSeconds": 120,
+              "skipped": false,
+              "sets": [
+                {
+                  "id": "set-0-1",
+                  "setNumber": 1,
+                  "plannedReps": 8,
+                  "plannedWeightKg": 60,
+                  "actualReps": 8,
+                  "actualWeightKg": 60,
+                  "completed": true,
+                  "completedAt": "2026-10-26T16:48:20.165Z"
+                },
+                {
+                  "id": "set-0-2",
+                  "setNumber": 2,
+                  "plannedReps": 8,
+                  "plannedWeightKg": 60,
+                  "actualReps": 8,
+                  "actualWeightKg": 60,
+                  "completed": true,
+                  "completedAt": "2026-10-26T16:48:20.232Z"
+                },
+                {
+                  "id": "set-0-3",
+                  "setNumber": 3,
+                  "plannedReps": 8,
+                  "plannedWeightKg": 60,
+                  "actualReps": 8,
+                  "actualWeightKg": 60,
+                  "completed": false
+                },
+                {
+                  "id": "set-0-4",
+                  "setNumber": 4,
+                  "plannedReps": 8,
+                  "plannedWeightKg": 60,
+                  "actualReps": 8,
+                  "actualWeightKg": 60,
+                  "completed": false
+                }
+              ]
+            },
+            {
+              "id": "sess-ex-1-ex-2-1793033299933",
+              "plannedExerciseId": "ex-2-1793033299933",
+              "name": "Жим гантелей на наклонной",
+              "muscleGroup": "Грудь",
+              "isBodyweight": false,
+              "restSeconds": 90,
+              "skipped": false,
+              "sets": [
+                {
+                  "id": "set-1-1",
+                  "setNumber": 1,
+                  "plannedReps": 10,
+                  "plannedWeightKg": 20,
+                  "actualReps": 10,
+                  "actualWeightKg": 20,
+                  "completed": false
+                },
+                {
+                  "id": "set-1-2",
+                  "setNumber": 2,
+                  "plannedReps": 10,
+                  "plannedWeightKg": 20,
+                  "actualReps": 10,
+                  "actualWeightKg": 20,
+                  "completed": false
+                },
+                {
+                  "id": "set-1-3",
+                  "setNumber": 3,
+                  "plannedReps": 10,
+                  "plannedWeightKg": 20,
+                  "actualReps": 10,
+                  "actualWeightKg": 20,
+                  "completed": false
+                }
+              ]
+            },
+            {
+              "id": "sess-ex-2-ex-3-1793033299933",
+              "plannedExerciseId": "ex-3-1793033299933",
+              "name": "Армейский жим стоя",
+              "muscleGroup": "Плечи",
+              "isBodyweight": false,
+              "restSeconds": 120,
+              "skipped": false,
+              "sets": [
+                {
+                  "id": "set-2-1",
+                  "setNumber": 1,
+                  "plannedReps": 8,
+                  "plannedWeightKg": 40,
+                  "actualReps": 8,
+                  "actualWeightKg": 40,
+                  "completed": false
+                },
+                {
+                  "id": "set-2-2",
+                  "setNumber": 2,
+                  "plannedReps": 8,
+                  "plannedWeightKg": 40,
+                  "actualReps": 8,
+                  "actualWeightKg": 40,
+                  "completed": false
+                },
+                {
+                  "id": "set-2-3",
+                  "setNumber": 3,
+                  "plannedReps": 8,
+                  "plannedWeightKg": 40,
+                  "actualReps": 8,
+                  "actualWeightKg": 40,
+                  "completed": false
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "activeSession": null
+    },
+    {
+      "id": "usr_1793033301068_k2zcs",
+      "username": "alex_fit",
+      "displayName": "Алексей",
+      "passwordHash": "8f0e911fc22876b9fe0f9f67f112f076047c9a73bd4b689be91d7579978ca077",
+      "avatarColor": "#0EA5E9",
+      "friendCode": "DUO-XJW5",
+      "linkedFriendId": "usr_1793033299846_omq91",
+      "createdAt": "2026-10-26T16:48:21.068Z",
+      "settings": {
+        "id": "default",
+        "userName": "Алексей",
+        "friendName": "Максим",
+        "unit": "kg",
+        "theme": "dark",
+        "restSoundEnabled": true,
+        "weeklyGoalWorkouts": 3
+      },
+      "plans": [
+        {
+          "id": "plan-1793033301327",
+          "name": "Сплит: Сила и База 3× в неделю",
+          "description": "Сбалансированная программа на три дня: жимовая база, тяговый день и тренировка ног.",
+          "authorName": "Алексей",
+          "createdAt": "2026-10-26T16:48:21.327Z",
+          "updatedAt": "2026-10-26T16:48:21.327Z",
+          "isActive": true,
+          "days": [
+            {
+              "id": "day-mon-1793033301327",
+              "dayOfWeek": "Пн",
+              "title": "Верх тела: Грудь и Плечи",
+              "focus": "Жимовая база и дельты",
+              "estimatedMinutes": 50,
+              "exercises": [
+                {
+                  "id": "ex-1-1793033301327",
+                  "catalogId": "cat-bench-press",
+                  "name": "Жим штанги лёжа",
+                  "muscleGroup": "Грудь",
+                  "isBodyweight": false,
+                  "sets": 4,
+                  "reps": 8,
+                  "targetWeightKg": 60,
+                  "restSeconds": 120
+                },
+                {
+                  "id": "ex-2-1793033301327",
+                  "catalogId": "cat-incline-db",
+                  "name": "Жим гантелей на наклонной",
+                  "muscleGroup": "Грудь",
+                  "isBodyweight": false,
+                  "sets": 3,
+                  "reps": 10,
+                  "targetWeightKg": 20,
+                  "restSeconds": 90
+                },
+                {
+                  "id": "ex-3-1793033301327",
+                  "catalogId": "cat-ohp",
+                  "name": "Армейский жим стоя",
+                  "muscleGroup": "Плечи",
+                  "isBodyweight": false,
+                  "sets": 3,
+                  "reps": 8,
+                  "targetWeightKg": 40,
+                  "restSeconds": 120
+                }
+              ]
+            },
+            {
+              "id": "day-wed-1793033301327",
+              "dayOfWeek": "Ср",
+              "title": "Тяга: Спина и Руки",
+              "focus": "Ширина спины и бицепс",
+              "estimatedMinutes": 45,
+              "exercises": [
+                {
+                  "id": "ex-4-1793033301327",
+                  "catalogId": "cat-pullups",
+                  "name": "Подтягивания широким хватом",
+                  "muscleGroup": "Спина",
+                  "isBodyweight": true,
+                  "sets": 4,
+                  "reps": 10,
+                  "targetWeightKg": null,
+                  "restSeconds": 120
+                },
+                {
+                  "id": "ex-5-1793033301327",
+                  "catalogId": "cat-barbell-row",
+                  "name": "Тяга штанги в наклоне",
+                  "muscleGroup": "Спина",
+                  "isBodyweight": false,
+                  "sets": 4,
+                  "reps": 10,
+                  "targetWeightKg": 60,
+                  "restSeconds": 90
+                },
+                {
+                  "id": "ex-6-1793033301327",
+                  "catalogId": "cat-bicep-curl",
+                  "name": "Подъём штанги на бицепс",
+                  "muscleGroup": "Руки",
+                  "isBodyweight": false,
+                  "sets": 3,
+                  "reps": 12,
+                  "targetWeightKg": 30,
+                  "restSeconds": 75
+                }
+              ]
+            },
+            {
+              "id": "day-fri-1793033301327",
+              "dayOfWeek": "Пт",
+              "title": "Низ тела и Пресс",
+              "focus": "Базовые ноги и кор",
+              "estimatedMinutes": 50,
+              "exercises": [
+                {
+                  "id": "ex-7-1793033301327",
+                  "catalogId": "cat-squat",
+                  "name": "Приседания со штангой",
+                  "muscleGroup": "Ноги",
+                  "isBodyweight": false,
+                  "sets": 4,
+                  "reps": 8,
+                  "targetWeightKg": 80,
+                  "restSeconds": 150
+                },
+                {
+                  "id": "ex-8-1793033301327",
+                  "catalogId": "cat-rdl",
+                  "name": "Румынская тяга",
+                  "muscleGroup": "Ноги",
+                  "isBodyweight": false,
+                  "sets": 3,
+                  "reps": 10,
+                  "targetWeightKg": 70,
+                  "restSeconds": 120
+                },
+                {
+                  "id": "ex-9-1793033301327",
+                  "catalogId": "cat-plank",
+                  "name": "Планка с контролем кора",
+                  "muscleGroup": "Пресс",
+                  "isBodyweight": true,
+                  "sets": 3,
+                  "reps": 60,
+                  "targetWeightKg": null,
+                  "restSeconds": 60
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "history": [
+        {
+          "id": "hist-1793033301893",
+          "planId": "plan-1793033301327",
+          "planName": "Сплит: Сила и База 3× в неделю",
+          "dayOfWeek": "Пн",
+          "workoutTitle": "Верх тела: Грудь и Плечи",
+          "startedAt": "2026-10-26T16:48:21.411Z",
+          "finishedAt": "2026-10-26T16:48:21.893Z",
+          "durationMinutes": 1,
+          "participant": "me",
+          "participantName": "Алексей",
+          "totalCompletedSets": 1,
+          "totalCompletedReps": 8,
+          "totalVolumeKg": 500,
+          "exercises": [
+            {
+              "id": "sess-ex-0-ex-1-1793033301327",
+              "plannedExerciseId": "ex-1-1793033301327",
+              "name": "Жим штанги лёжа",
+              "muscleGroup": "Грудь",
+              "isBodyweight": false,
+              "restSeconds": 120,
+              "skipped": false,
+              "sets": [
+                {
+                  "id": "set-0-1",
+                  "setNumber": 1,
+                  "plannedReps": 8,
+                  "plannedWeightKg": 60,
+                  "actualReps": 8,
+                  "actualWeightKg": 62.5,
+                  "completed": true,
+                  "completedAt": "2026-10-26T16:48:21.616Z"
+                },
+                {
+                  "id": "set-0-2",
+                  "setNumber": 2,
+                  "plannedReps": 8,
+                  "plannedWeightKg": 60,
+                  "actualReps": 8,
+                  "actualWeightKg": 60,
+                  "completed": false
+                },
+                {
+                  "id": "set-0-3",
+                  "setNumber": 3,
+                  "plannedReps": 8,
+                  "plannedWeightKg": 60,
+                  "actualReps": 8,
+                  "actualWeightKg": 60,
+                  "completed": false
+                },
+                {
+                  "id": "set-0-4",
+                  "setNumber": 4,
+                  "plannedReps": 8,
+                  "plannedWeightKg": 60,
+                  "actualReps": 8,
+                  "actualWeightKg": 60,
+                  "completed": false
+                },
+                {
+                  "id": "set-dyn-1793033301546",
+                  "setNumber": 5,
+                  "plannedReps": 8,
+                  "plannedWeightKg": 60,
+                  "actualReps": 8,
+                  "actualWeightKg": 60,
+                  "completed": false
+                }
+              ]
+            },
+            {
+              "id": "sess-ex-1-ex-2-1793033301327",
+              "plannedExerciseId": "ex-2-1793033301327",
+              "name": "Жим гантелей на наклонной",
+              "muscleGroup": "Грудь",
+              "isBodyweight": false,
+              "restSeconds": 90,
+              "skipped": false,
+              "sets": [
+                {
+                  "id": "set-1-1",
+                  "setNumber": 1,
+                  "plannedReps": 10,
+                  "plannedWeightKg": 20,
+                  "actualReps": 10,
+                  "actualWeightKg": 20,
+                  "completed": false
+                },
+                {
+                  "id": "set-1-2",
+                  "setNumber": 2,
+                  "plannedReps": 10,
+                  "plannedWeightKg": 20,
+                  "actualReps": 10,
+                  "actualWeightKg": 20,
+                  "completed": false
+                },
+                {
+                  "id": "set-1-3",
+                  "setNumber": 3,
+                  "plannedReps": 10,
+                  "plannedWeightKg": 20,
+                  "actualReps": 10,
+                  "actualWeightKg": 20,
+                  "completed": false
+                }
+              ]
+            },
+            {
+              "id": "sess-ex-2-ex-3-1793033301327",
+              "plannedExerciseId": "ex-3-1793033301327",
+              "name": "Армейский жим стоя",
+              "muscleGroup": "Плечи",
+              "isBodyweight": false,
+              "restSeconds": 120,
+              "skipped": false,
+              "sets": [
+                {
+                  "id": "set-2-1",
+                  "setNumber": 1,
+                  "plannedReps": 8,
+                  "plannedWeightKg": 40,
+                  "actualReps": 8,
+                  "actualWeightKg": 40,
+                  "completed": false
+                },
+                {
+                  "id": "set-2-2",
+                  "setNumber": 2,
+                  "plannedReps": 8,
+                  "plannedWeightKg": 40,
+                  "actualReps": 8,
+                  "actualWeightKg": 40,
+                  "completed": false
+                },
+                {
+                  "id": "set-2-3",
+                  "setNumber": 3,
+                  "plannedReps": 8,
+                  "plannedWeightKg": 40,
+                  "actualReps": 8,
+                  "actualWeightKg": 40,
+                  "completed": false
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "activeSession": null
+    }
+  ],
+  "sessions": {
+    "2bcec5085b8936f42363e5e7d9c3d4b8c3bfa11c32214cdb": "usr_1793033301068_k2zcs"
+  }
+}
